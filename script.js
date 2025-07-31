@@ -37,6 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // الحصول على أبعاد الصورة المعروضة
         const displayedRect = gameImage.getBoundingClientRect();
         const containerRect = gameImage.parentElement.getBoundingClientRect();
+
+        // حساب إزاحة الصورة داخل الحاوية
+        const imageOffsetX = displayedRect.left - containerRect.left;
+        const imageOffsetY = displayedRect.top - containerRect.top;
         
         // حساب نسبة التحجيم
         const scaleX = displayedRect.width / ORIGINAL_WIDTH;
@@ -58,8 +62,8 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let row = 0; row < GRID_SIZE; row++) {
             for (let col = 0; col < GRID_SIZE; col++) {
                 positions.push({
-                    top: gridDisplayed.top + (row * cellHeight),
-                    left: gridDisplayed.left + (col * cellWidth),
+                    top: imageOffsetY + gridDisplayed.top + (row * cellHeight),
+                    left: imageOffsetX + gridDisplayed.left + (col * cellWidth),
                     width: cellWidth * 0.85, // تقليل الحجم قليلاً للمظهر
                     height: cellHeight * 0.85
                 });
@@ -74,6 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const displayedRect = gameImage.getBoundingClientRect();
         const containerRect = gameImage.parentElement.getBoundingClientRect();
         
+        // حساب إزاحة الصورة داخل الحاوية
+        const imageOffsetX = displayedRect.left - containerRect.left;
+        const imageOffsetY = displayedRect.top - containerRect.top;
+
         // حساب نسبة التحجيم
         const scaleX = displayedRect.width / ORIGINAL_WIDTH;
         const scaleY = displayedRect.height / ORIGINAL_HEIGHT;
@@ -87,8 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         // تطبيق المواقع على الزر
-        playButtonOverlay.style.top = buttonDisplayed.top + 'px';
-        playButtonOverlay.style.left = buttonDisplayed.left + 'px';
+        playButtonOverlay.style.top = (imageOffsetY + buttonDisplayed.top) + 'px';
+        playButtonOverlay.style.left = (imageOffsetX + buttonDisplayed.left) + 'px';
         playButtonOverlay.style.width = buttonDisplayed.width + 'px';
         playButtonOverlay.style.height = buttonDisplayed.height + 'px';
     }
