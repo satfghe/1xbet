@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // مصفوفة لتخزين المربعات المختارة
     let selectedCells = [];
+    let isGameActive = false;
     
     // حساب مواضع المربعات في الشبكة بناءً على أبعاد الصورة المعروضة
     function calculateGridPositions() {
@@ -175,7 +176,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // إضافة مستمع الحدث للزر
     playButtonOverlay.addEventListener('click', function(e) {
         e.preventDefault();
-        showSafeCells();
+
+        isGameActive = !isGameActive; // تبديل الحالة
+
+        if (isGameActive) {
+            showSafeCells();
+        } else {
+            clearPreviousCells();
+        }
         
         // تأثير بصري للزر
         this.style.backgroundColor = 'rgba(0, 255, 0, 0.3)';
